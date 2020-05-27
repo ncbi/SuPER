@@ -313,6 +313,7 @@ if __name__ == "__main__":
 
     parser = ArgumentParser(description='Subgenome Position Exploration by RNA sequencing data (SuPER): Identify subgenome start positions in reference genome from SAM alignments\n'+
     '**Notice** In order to maximize the speed of SuPER, pypy is recommended as the python interpreter.\n'+
+    'Software dependeny: infernal(>=v.1.1.2).\n'+
     'Python modules repuired: biopython, distance, progress.')
     # Essential Input
     parser.add_argument('-r', '--reference', help='reference genome in fasta format', required=True,dest='reference',metavar='')
