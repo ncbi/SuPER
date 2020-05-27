@@ -91,5 +91,5 @@ pypy3 SuPER.py -i SARS2_bwa_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -a MN9
 
 - Input Oxford Nanopore RNA-seq data. Tell SuPER the alignment program is 'minimap2' and the data type is Nanopore (-d 0):
 ```
-pypy3 SuPER.py -i SARS2_bwa_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -p minimap2 -d 0 -a MN908947.3.gff3 -t output -o output/SARS2_bwa_rnaseq.out.tab
+pypy3 SuPER.py -i SARS2_bwa_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -p minimap2 -d 0 -a MN908947.3.gff3 -t output -o output/SARS2_minimap2_nanopore.out.tab
 ```
