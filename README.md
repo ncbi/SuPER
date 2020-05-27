@@ -34,8 +34,8 @@ optional arguments:
 ```
 
 ## Environment
-Use pypy3 as Python Interpreter can speed up SuPER.   
-Make sure you install Anaconda first, and you can use pypy3 as follows:
+Although regular Python Interpreter can run SuPER, to use pypy3 as Python Interpreter can speed up SuPER.   
+Make sure you install Anaconda first, and you can install pypy3 as follows:
 
 ```
 conda create -n py3 python=3.6
@@ -55,10 +55,9 @@ To install python modules:
 pip install biopython==1.70 distance progress
 ```
 
-For metatranscriptomic data, we recommend that host contamination be removed first before getting the final SAM file in order to reduce run time and increase accuracy.
-
 ### Input
 We recommend you use Illumina RNA-Seq data as NGS data and Direct RNA Sequencing (DRS) of Oxford Nanopore as 3GS data to get the sam file.
+For metatranscriptomic data, we recommend that host contamination be removed first before getting the final SAM file in order to reduce run time and increase accuracy.
 The group classification (i.e. Alpha, Beta, Gamma or Delta) of a coronavirus strain is required.
 
 ### Output
@@ -85,7 +84,12 @@ pypy3 SuPER.py -r KY770850.fa -g Alpha -a KY770850.gff3 -t output -o output/KY77
 pypy3 SuPER.py -r KY770850.fa -g Alpha -t output -o output/KY770850_genome.out.tab
 ```
 
-- With RNA-seq data aligned by bwa, and set the read number cutoff=20:
+- Input Illumina RNA-seq data aligned by bwa and set the read number cutoff as 20 (-c 20):
 ```
 pypy3 SuPER.py -i SARS2_bwa_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -a MN908947.3.gff3 -t output -o output/SARS2_bwa_rnaseq.out.tab
+```
+
+- Input Oxford Nanopore RNA-seq data. Tell SuPER the alignment program is 'minimap2' and the data type is Nanopore (-d 0):
+```
+pypy3 SuPER.py -i SARS2_bwa_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -p minimap2 -d 0 -a MN908947.3.gff3 -t output -o output/SARS2_bwa_rnaseq.out.tab
 ```
