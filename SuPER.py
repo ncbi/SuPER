@@ -98,7 +98,7 @@ def pipeline(args):
     print("[Infer TRS-L]: done!")
     print("="*80)
 
-    # step.2.1: if alignment is not given, search TRS-B through the genome
+    # step.2.1: if SAM file is not given, search TRS-B through the genome
     if not inputfile:
         if gff:
             gff_path = gff
@@ -158,19 +158,22 @@ def pipeline(args):
                 
                 # get {prefix}.right spliced read records/sites
                 grep "XA:Z" {prefix}.right.sam > {prefix}.right.tmp.sam
-                grep "XA:Z" {prefix}.right.sam | awk '{{print $NF}}' | awk -F"," 'BEGIN{{OFS="\\t"}}{{print $3,$2}}' | sed 's/[+-]//' > {prefix}.right.tab
-                paste {prefix}.right.tmp.sam {prefix}.right.tab | awk '$NF<150&&$NF>10{{print $0}}' > {prefix}.right.XA.sam
+                # $3,$2: CIGAR, strand+pos
+                grep "XA:Z" {prefix}.right.sam | awk '{{print $NF}}' | awk -F"," 'BEGIN{{OFS="\\t"}}{{print $3,$2}}' > {prefix}.right.tab
+                paste {prefix}.right.tmp.sam {prefix}.right.tab | awk 'BEGIN{{OFS="\\t"}}(and(16,$2) && substr($NF,1,1)=="-") || (!and(16,$2) && substr($NF,1,1)=="+"){{$NF=substr($NF,2,length($NF)); print $0}}'| awk '$NF>20000{{print $0}}' > {prefix}.right.XA.sam
                 
                 # get {prefix}.left spliced read records/sites
                 grep "XA:Z" {prefix}.left.sam > {prefix}.left.tmp.sam
-                grep "XA:Z" {prefix}.left.sam | awk '{{print $NF}}' | awk -F"," 'BEGIN{{OFS="\\t"}}{{print $3,$2}}' | sed 's/[+-]//' > {prefix}.left.tab
-                paste {prefix}.left.tmp.sam {prefix}.left.tab | awk '$NF>20000{{print $0}}' > {prefix}.left.XA.sam
+                # $3,$2: CIGAR, strand+pos
+                grep "XA:Z" {prefix}.left.sam | awk '{{print $NF}}' | awk -F"," 'BEGIN{{OFS="\\t"}}{{print $3,$2}}' > {prefix}.left.tab
+                paste {prefix}.left.tmp.sam {prefix}.left.tab | awk 'BEGIN{{OFS="\\t"}}(and(16,$2) && substr($NF,1,1)=="-") || (!and(16,$2) && substr($NF,1,1)=="+"){{$NF=substr($NF,2,length($NF)); print $0}}' | awk '$NF>20000{{print $0}}' > {prefix}.left.XA.sam
                 
-                # get {prefix}.left-{prefix}.right paired read records/sites
+                # get {prefix}.left & {prefix}.right paired read records/sites
                 grep "SA:Z" {prefix}.left.sam > {prefix}.left.1.tmp.sam
                 grep "SA:Z" {prefix}.right.sam > {prefix}.right.1.tmp.sam
-                grep "SA:Z" {prefix}.left.sam | awk '{{print $NF}}' | awk -F"," 'BEGIN{{OFS="\\t"}}{{print $4,$2}}' > {prefix}.left.1.tab
-                paste {prefix}.left.1.tmp.sam {prefix}.left.1.tab | awk '$NF>20000{{print $0}}' > {prefix}.both.SA.tmp.sam
+                # $4,$3,$2: CIGAR, strand, pos
+                grep "SA:Z" {prefix}.left.sam | awk '{{print $NF}}' | awk -F"," 'BEGIN{{OFS="\\t"}}{{print $4,$3""$2}}' > {prefix}.left.1.tab
+                paste {prefix}.left.1.tmp.sam {prefix}.left.1.tab | awk 'BEGIN{{OFS="\\t"}}(and(16,$2) && substr($NF,1,1)=="-") || (!and(16,$2) && substr($NF,1,1)=="+"){{$NF=substr($NF,2,length($NF)); print $0}}' | awk '$NF>20000{{print $0}}' > {prefix}.both.SA.tmp.sam
                 # store the longer sequence
                 awk 'BEGIN{{OFS="\\t"}}NR==FNR{{a[$1""$4]=$10;next}}($1""$NF in a){{if(length($10)>=length(a[$1""$NF]))\
                 {{print $0}}else{{$10=a[$1""$NF]; print $0}}}}' {prefix}.right.1.tmp.sam {prefix}.both.SA.tmp.sam > {prefix}.both.SA.sam

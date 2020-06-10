@@ -79,11 +79,6 @@ Adjusted_subgenome_position | Original_subgenome_position | Putative_body_CS | H
 pypy3 SuPER.py -r KY770850.fa -g Alpha -a KY770850.gff3 -t output -o output/KY770850_genome.out.tab
 ```
 
-- Even without annotation file:
-```
-pypy3 SuPER.py -r KY770850.fa -g Alpha -t output -o output/KY770850_genome.out.tab
-```
-
 - Input Illumina RNA-seq data aligned by bwa and set the read number cutoff as 20 (-c 20):
 ```
 pypy3 SuPER.py -i SARS2_bwa_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -a MN908947.3.gff3 -t output -o output/SARS2_bwa_rnaseq.out.tab

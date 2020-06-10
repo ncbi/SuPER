@@ -18,11 +18,13 @@ for line in f:
         cols = line.strip().split('\t')
         if cols[2] == 'CDS':
             start, end = cols[3], cols[4]
-            try:
-                gene_name = [kv.split("=") for kv in cols[8].split(';') if kv.startswith('gene=')][0][-1]
-            except:
+            if 'product=' in cols[8]:
                 gene_name =[kv.split("=") for kv in cols[8].split(';') if kv.startswith('product=')][0][-1]
-            gene_range[gene_name+':'+start+'-'+end] = (start, end)
+            elif 'gene=' in cols[8]:
+                gene_name = [kv.split("=") for kv in cols[8].split(';') if kv.startswith('gene=')][0][-1]
+            else:
+                gene_name = 'unknown_gene'
+            gene_range[gene_name+":"+start+"-"+end] = (start, end)
 f.close()
 
 f = open(subgenome_pos_file)

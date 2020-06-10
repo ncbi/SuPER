@@ -35,14 +35,17 @@ else:
             cols = line.strip().split('\t')
             if cols[2] == 'CDS':
                 start, end = cols[3], cols[4]
-                try:
-                    gene_name = [kv.split("=") for kv in cols[8].split(';') if kv.startswith('gene=')][0][-1]
-                except:
+                if 'product=' in cols[8]:
                     gene_name =[kv.split("=") for kv in cols[8].split(';') if kv.startswith('product=')][0][-1]
+                elif 'gene=' in cols[8]:
+                    gene_name = [kv.split("=") for kv in cols[8].split(';') if kv.startswith('gene=')][0][-1]
+                else:
+                    gene_name = 'unknown_gene'
                 gene_range[gene_name+":"+start+"-"+end] = (start, end)
     f.close()
 
     print('\t'.join(['Adjusted_subgenome_position','Original_subgenome_position','Putative_TRS-B','Hamdist_from_leader_CS','Associated_ORF:start-end']))
+    sg_pos_dict = {}
     for i in range(0, len(seq)-kmer+1):
         if i > 20000:
             find_ORF = 0
@@ -56,9 +59,30 @@ else:
                     start, end = gene_range[gene_name]
                     if 0 < int(start)-position < 100:
                         find_ORF = 1
-                        print('\t'.join([str(position),str(position),subseq,str(dist),gene_name]))
+                        sg_pos_dict[str(position)] = [str(position),str(position),subseq,str(dist),gene_name]
                         break
                 else:
                     # without ORF support the max distance can only be 1
                     if dist <= 1:
-                        print('\t'.join([str(position),str(position),subseq,str(dist),"Not found"]))
+                        sg_pos_dict[str(position)] = [str(position),str(position),subseq,str(dist),"Not found"]
+
+    # remove sg_pos redundancy, if the orf is the same then we get the min dist pos
+    orf_dict = {}
+    for sg_pos in sg_pos_dict:
+        sg_pos, sg_pos, trsb, dist, orf = sg_pos_dict[sg_pos]
+        if orf == "Not found":
+            orf_dict[orf+"_"+sg_pos] = [sg_pos, sg_pos, trsb, dist, orf]
+            continue
+        if orf not in orf_dict:
+            orf_dict[orf] = [sg_pos, sg_pos, trsb, dist, orf]
+        else:
+            if int(dist) < int(orf_dict[orf][3]):# update value to get smaller distance TRS-B
+                orf_dict[orf] = [sg_pos, sg_pos, trsb, dist, orf]
+            elif int(dist) == int(orf_dict[orf][3]):
+                if int(sg_pos) > int(orf_dict[orf][1]):# when with same distance, update value to make TRS-B closer to ORF
+                    orf_dict[orf] = [sg_pos, sg_pos, trsb, dist, orf]
+    
+    for orf in orf_dict:
+        res_list = orf_dict[orf]
+        print('\t'.join(res_list))
+        
