@@ -30,17 +30,18 @@ f.close()
 f = open(subgenome_pos_file)
 line = f.readline()
 cols = line.strip().split('\t')
-print('\t'.join(cols[:-1]+['Associated_ORF:start-end', cols[-1]]))
+print('\t'.join(cols[:-1]+['Distance_from_ORF', 'Associated_ORF:start-end', cols[-1]]))
 for line in f:
     cols = line.strip().split('\t')
     adjust_sg_pos = cols[0]
     find_ORF = 0
     for gene_name in gene_range:
         start, end = gene_range[gene_name]
-        if 0 < int(start)-int(adjust_sg_pos) < 100:
-            print('\t'.join(cols[:-1]+[gene_name, cols[-1]]))
+        if 0 < int(start)-int(adjust_sg_pos) < 170:
+            dist_orf = int(start)-int(adjust_sg_pos)
+            print('\t'.join(cols[:-1]+[str(dist_orf), gene_name, cols[-1]]))
             find_ORF = 1
             break
     if not find_ORF:
-        print('\t'.join(cols[:-1]+['Not found', cols[-1]]))
+        print('\t'.join(cols[:-1]+['NA', 'Not found', cols[-1]]))
 f.close()

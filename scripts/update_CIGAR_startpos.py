@@ -29,8 +29,10 @@ def update_CIGAR_startpos(str1, str2, pos):
         if length > str2_s_len:
             diff = length - str2_s_len
             if letter == 'S':
-                # if still got S, stop updating and only keep the right read
-                return str2, str(pos)
+                letter = 'M' # if still got S, we assume it is MATCH and will double check in the consensus sequence
+#            if letter == 'S':
+#                # if still got S, stop updating and only keep the right read
+#                return str2, str(pos)
             new_overlap_str = str(int(span)-diff) + letter
 #            print(span, diff, str2_s_len, pos)
             new_str2 += new_overlap_str

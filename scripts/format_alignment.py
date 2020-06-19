@@ -79,7 +79,7 @@ seq1 = SeqIO.read(TRS_L_file, "fasta", alphabet=IUPAC.ambiguous_dna)
 # read the whole genome
 seq3= SeqIO.read(ref_file, "fasta", alphabet=IUPAC.ambiguous_dna)
 # read sgmRNA (more region match the TRS-B than TRS-L)
-print("="*36+"Subgenome Position Alignment"+"="*36)
+print("="*36+"Subgenomic mRNA Alignment"+"="*36)
 for fn in sorted(os.listdir(sgmRNA_doc)):
     sgmRNA_file = os.path.join(sgmRNA_doc, fn)
     seq2 = SeqIO.read(sgmRNA_file, "fasta", alphabet=IUPAC.ambiguous_dna)

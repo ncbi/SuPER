@@ -46,12 +46,12 @@ for line in f:
     else:
         subgenome_index_dict[sg_pos].append(read_name)
 
-print('\t'.join(['Adjusted_subgenome_position', 'Original_subgenome_position', 'Putative_TRS-B', 'Hamdist_from_leader_CS', 'Supported_read_list']))
+print('\t'.join(['Adjusted_TRS-B_position', 'Original_TRS-B_position', 'Putative_TRS-B', 'Hamdist_from_TRS-L', 'Supported_read_list']))
 adjust_sg_pos_dict = {}
 for sg_pos in sorted(subgenome_index_dict.keys()):
     index = int(sg_pos) - 1
-    start = index-15
-    end = index+kmer+20
+    start = index-30
+    end = index+kmer+30
     read_list = subgenome_index_dict[sg_pos]
     csb, hamdist, adjust_sg_pos, find = find_putative_CS(start, end, kmer, seq, leaderCS)
     sg_pos = str(sg_pos)
