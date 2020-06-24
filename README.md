@@ -124,7 +124,7 @@ pypy3 SuPER.py -i SARS2_hisat2_aligned.sam -r MN908947.3.fasta -g Beta -a MN9089
 
 - Input Oxford Nanopore RNA-seq data. Tell SuPER the alignment program is 'minimap2' and the data type is Nanopore (-d 0):
 ```
-pypy3 SuPER.py -i SARS2_minimap2_aligned.sam -r MN908947.3.fasta -c 20 -g Beta -p minimap2 -d 0 -a MN908947.3.gff3 -t output -o output/SARS2_minimap2_nanopore.out.tab
+pypy3 SuPER.py -i SARS2_minimap2_aligned.sam -r MN908947.3.fasta -g Beta -p minimap2 -d 0 -a MN908947.3.gff3 -t output -o output/SARS2_minimap2_nanopore.out.tab
 ```
 ## Citation
 [Yiyan Yang, Wei Yan, Brantley Hall, Xiaofang Jiang. Characterizing transcriptional regulatory sequences in coronaviruses and their role in recombination. bioRxiv. 2020](https://www.biorxiv.org/content/10.1101/2020.06.21.163410v1)
