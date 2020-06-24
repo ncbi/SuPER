@@ -420,18 +420,18 @@ def pipeline(args):
 if __name__ == "__main__":
     from argparse import ArgumentParser
 
-    parser = ArgumentParser(description='Subgenomic mRNA Position Exploration with RNA-seq (SuPER): Identify TRS-B start positions in reference genome from SAM alignments\n'+
-    '**Notice** In order to maximize the speed of SuPER, pypy is recommended as the python interpreter.\n'+
-    'Software dependeny: infernal(>=v.1.1.2).\n'+
+    parser = ArgumentParser(description='Subgenomic mRNA Position Exploration with RNA-seq (SuPER): Identify TRS-B start positions in reference genome from SAM alignments\n'+ \
+    '**Notice** In order to maximize the speed of SuPER, pypy is recommended as the python interpreter.\n'+ \
+    'Software dependeny: infernal(>=v.1.1.2).\n'+ \
     'Python modules repuired: biopython, distance, progress.')
     # Essential Input
-    parser.add_argument('-r', '--reference', help='reference genome in fasta format', required=True,dest='reference',metavar='')
+    parser.add_argument('-r', '--reference', help='reference genome in fasta format', required=True,dest='reference')
     parser.add_argument('-g', '--group', help='group of reference genome (e.g. Alpha, Beta, Gamma, Delta)',required=True,dest='group',choices=['Alpha', 'Beta', 'Gamma', 'Delta'])
-    parser.add_argument('-a', '--annotate', help='gff3 annnotation for reference genome',required=True,dest='gff',metavar='')
+    parser.add_argument('-a', '--annotate', help='gff3 annnotation for reference genome',required=True,dest='gff')
 
     # Optional Input
     parser.add_argument('-i', '--input', help='input sam file', required=False, dest='input',metavar='')
-    parser.add_argument('-d', '--datetype', help='whether sam file data is from Illumina RNA-Seq or Oxford Nanopore data. Can only be 1(for RNA-seq) or 0(for Nanopore Direct RNA Sequencing) [Default:1]',type=int,default=1,required=False,dest='datatype',metavar='')
+    parser.add_argument('-d', '--datetype', help='whether sam file data is from Illumina RNA-Seq or Oxford Nanopore data. Can only be 1(for RNA-seq) or 0(for Nanopore Direct RNA Sequencing) [Default:1]',type=int, default=1, required=False, dest='datatype', choices=[0, 1])
     parser.add_argument('-l', '--csl', help='the Core Sequence(CS) of leader sequence i.e. TRS-L in reference genome. If not given it will be detected automatically',required=False,dest='csl',metavar='')
     parser.add_argument('-p', '--program', help='the program used to get sam file. If not given it will be detected automatically. **Notice** bwa, minimap2, hisat2 are recommended!', required=False, dest='program')
     parser.add_argument('-c', '--cutoff', help='the cutoff/threshold for the spliced read number so as to keep a spliced site [Default: 3]', type=int, default=3, required=False, dest='cutoff',metavar='')
