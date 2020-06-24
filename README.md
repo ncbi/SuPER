@@ -1,5 +1,5 @@
 # SuPER
-## Subgenome Position Exploration by RNA sequencing data
+## ++Su++bgenomic mRNA ++P++osition ++E++xploration by ++R++NA sequencing data
 
 ## Brief Introduction
 We developed the tool SuPER to identify TRS-B sites in coronavirus genomes. SuPER first uses a covariance model derived from Rfam to identify TRS-L via profile-based sequence and structure scoring. Then, SuPER identifies TRS-B sites either by identifying template switching junctions with RNA-seq or in the absence of RNA-seq by identifying sequences preceding genes that are similar to the TRS-L CS as putative TRS-B CS.
