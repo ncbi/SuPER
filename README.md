@@ -93,7 +93,7 @@ Adjusted_TRS-B_position|Original_TRS-B_position| Putative_TRS-B|Hamdist_from_TRS
 - Column 9: If this position is supported by RNA-seq data, the spliced reads (shown as 'read_name.sam_flag') are listed.
 
 ##### Alignment
-After finding TRS-B, the supported reads nearby the position would be collected to reconstructed a consensus subgenomic mRNA, which would be further alligned with TRS-L an TRS-B in the reference genome.
+After finding TRS-B, the supported reads nearby the position would be collected to reconstruct a consensus subgenomic mRNA, which would be further base-paired with TRS-L an TRS-B in the reference genome.
 For example:
 
 ```
