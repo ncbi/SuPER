@@ -79,6 +79,7 @@ Adjusted_TRS-B_position|Original_TRS-B_position| Putative_TRS-B|Hamdist_from_TRS
 20559|20555|AACTAAAT|1|-|11|surface glycoprotein:20570-24091|Yes|ERR3460958.266626.0,ERR3460958.627131.0,...
 24468|24468|AACCACAC|2|Not recommended|14|4b protein:24482-24748|No|NA
 25672|25665|AACTGAAC|1|-|14|nucleocapsid protein:25686-26855|Yes|ERR3460958.1663.0,ERR3460958.4848.0,...
+
 *Notice: The TRS-B with hamming distance from TRS-L greater than 1 would be labeled as 'Not recommended'.
 
 - Column 1: (most important) TRS-B position adjusted by nearby TRS-B core sequence (Column 3), because sg mRNA might be mapped to the genome with slight shift due to mismatch in alignment algorithm. And TRS-B core sequences are used to adjust the positions. If body core sequence is not found within the original subgenome position surrounding interval of [core seq start position-30bp, core seq end position+30bp], this column is the same as "Original_TRS-B_position".
