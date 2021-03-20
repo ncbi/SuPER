@@ -127,4 +127,4 @@ pypy3 SuPER.py -i SARS2_hisat2_aligned.sam -r MN908947.3.fasta -g Beta -a MN9089
 pypy3 SuPER.py -i SARS2_minimap2_aligned.sam -r MN908947.3.fasta -g Beta -p minimap2 -d 0 -a MN908947.3.gff3 -t output -o output/SARS2_minimap2_nanopore.out.tab
 ```
 ## Citation
-[Yiyan Yang, Wei Yan, Brantley Hall, Xiaofang Jiang. Characterizing transcriptional regulatory sequences in coronaviruses and their role in recombination. bioRxiv. 2020](https://www.biorxiv.org/content/10.1101/2020.06.21.163410v1)
+[Yiyan Yang, Wei Yan, A Brantley Hall, Xiaofang Jiang, Characterizing Transcriptional Regulatory Sequences in Coronaviruses and Their Role in Recombination, Molecular Biology and Evolution, 2020](https://doi.org/10.1093/molbev/msaa281)
