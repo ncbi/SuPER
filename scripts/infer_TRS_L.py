@@ -48,12 +48,15 @@ def get_TRS_L(cmalign_file, ID, grp, refseq):
     except:
         grp_TRS_L = grp_TRS_L.replace('.','')
         TRS_L_index = seq_dict['#=GC RF'].index(grp_TRS_L)
-    new_TRS_L = seq_dict[ID][TRS_L_index:TRS_L_index+len(grp_TRS_L)]
+ 
+    new_TRS_L = seq_dict[ID][TRS_L_index-3:TRS_L_index+len(grp_TRS_L)+1+3]
     new_TRS_L = new_TRS_L.replace('U','T').upper()
     try:
-        position = str(refseq.index(new_TRS_L)+1)
+        position = str(refseq.index(new_TRS_L)+1+3)
     except:
         position = 'Not found'
+    new_TRS_L = seq_dict[ID][TRS_L_index:TRS_L_index+len(grp_TRS_L)]
+
     return grp_TRS_L, new_TRS_L, position
 
 def main(infile, grp, prefix, cm_dir, firstbp=300):
