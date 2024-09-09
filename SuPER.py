@@ -101,10 +101,11 @@ def pipeline(args):
             position = str(refseq.index(csl)+1)
         except:
             position = 'Not found'
-        g = open('{prefix}.TRS_L.txt'.format(prefix=prefix), 'w')
-        g.write("#TRS-L: "+csl+"\n"+"#Position: "+position+"\n")
-        g.close()
-        print("[Infer TRS-L]:", csl, "will be used as TRS-L.")
+    csl = csl.replace("U","T")
+    g = open('{prefix}.TRS_L.txt'.format(prefix=prefix), 'w')
+    g.write("#TRS-L: "+csl+"\n"+"#Position: "+position+"\n")
+    g.close()
+    print("[Infer TRS-L]:", csl, "will be used as TRS-L.")
     kmer = len(csl)
     print("[Infer TRS-L]: done!")
     print("="*80)

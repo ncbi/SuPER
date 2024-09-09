@@ -109,7 +109,7 @@ Position 20555 alignment:
 
 - SuPER can guess the subgenomic mRNA positions even without offering RNA-seq data but with annotation file(i.e. gff3 file):
 ```
-pypy3 SuPER.py -r KY770850.fa -g Alpha -a KY770850.gff3 -t output -o output/KY770850_genome.out.tab
+pypy3 SuPER.py -r KY770851.fa -g Alpha -a KY770851.gff3 -t output -o output/KY770851_genome.out.tab
 ```
 
 - Input Illumina RNA-seq data aligned by bwa and set the supported read number cutoff as 20 (-c 20):
